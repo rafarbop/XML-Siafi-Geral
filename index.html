@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>XML - Processo Batch SIAFI</title>
+    
+    <link rel="stylesheet" href="./bulma/css/bulma.css">
+    <link rel="stylesheet" href="/icons/css/all.css">
+    <!-- use version 0.18.10 -->
+    <script lang="javascript" src="https://cdn.sheetjs.com/xlsx-0.18.10/package/dist/xlsx.full.min.js" defer></script>    
+</head>
+<body>
+    <section class="hero has-background-info-light is-fullheight">
+        <header class="box hero-head has-background-info has-text-centered is-marginless">
+            <h1 class="title is-3 has-text-white">Gerar XML para Processo Bacth SIAFI</h1>
+            <a class="button is-info is-light" href="/">Home</a>
+            <a class="button is-info is-light" href="/pages/dados.html">Incluir Dados</a>
+            <a class="button is-info is-light" href="/pages/visualizar.html">Visualizar</a>
+        </header>
+        <section class="hero-body has-text-justified px-6 py-4 is-flex is-flex-direction-column">
+            <p class="title is-4 has-text-centered">Informações sobre arquivos XML e a Carga de Dados do SIAFI</p>
+            <p>O SIAFI possui um Subsistema de Importação e Exportação de Dados, onde é possível receber arquivos (Somente em formato XML - Extensible Markup Language) contendo as informações necessárias para executar funcionalidades de negócio do SIAFI, validar o formato dessas informações e encaminhá-las para o processamento.</p>
+            <p>Nessa forma de inclusão de dados, a geração de diversos documentos hábeis acontece de forma automática de acordo com as informações contidas nesse arquivo em formato XML que importamos para o sistema.</p>
+            <p>A Secretaria do Tesouro Nacional - STN - apresenta uma solução em Planilha de Excel para a conversão dos dados necessários para o formato XML - Link: <a href="https://youtu.be/zqP4pnmtobg" target="_blank">SNT - Como incluir documentos por meio de processo Batch</a>. Kolmar Kafran, servidor do IFPB, fez e disponibiliza uma versão modificada da planilha elaborada pela STN - Link: <a href="https://kafran.net/siafi/automatizacao-carga-dados-SIAFI/" target="_blank">Planilha modificada de Kolmar Kafran</a></p>
+            <p>Um dos problemas da utilização dessa planilha é a necessidade do Microsoft Excel, sendo necessário a compra de uma licença, pois a versão gratuita online do Microsoft 365, não suporta a exportação em XML.</p>
+            <p>Dessa forma, devido a necessidade de utilização do processo de Carga de Dados do SIAFI, sem precisar adfquirir uma licença do Microsoft Excel e também com o objetivo de disponibilizar um alternativa mais simples, este site possibilita a inclusão de dados dos dados necessários a geração de um arquivo XML a ser importando no SIAFI.</p>
+            <p>Os dados incluídos não são enviados ou processados em qualquer outro site ou servidor, são processados pelo próprio navegador do usuário usando a linguagem de programação Python/Javascript e sendo disponibilizado o download do arquivo XML</p>
+            <section id="mostrarXML" class="is-hidden">
+            </section>
+        </section>
+
+        <footer class="hero-foot has-background-info has-text-centered has-text-white is-size-7">
+            <p>Geração de Arquivo XML para importar no SIAFI</p>
+            <p>Desenvolvido com HTML/CSS/Bulma e Brython(Python+Javascript)2021</p>
+        </footer>
+    </section>
+
+    <script>
+        var planilha = XLSX.
+    </script>
+</body>
+</html>

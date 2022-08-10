@@ -1,0 +1,211 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>XML - Processo Batch SIAFI</title>
+    
+    <link rel="stylesheet" href="/bulma/css/bulma.css">
+    <link rel="stylesheet" href="/icons/css/all.css">
+    <script lang="javascript" src="https://cdn.sheetjs.com/xlsx-0.18.10/package/dist/xlsx.full.min.js" defer></script>    
+
+    <style>
+        #label_dados_gerais > label i{
+            position: relative;          
+        }
+        #label_dados_gerais > label i p.show_help {
+            font-size: 0.8rem;
+            position: absolute;
+            border: 0.1vw solid hsl(204, 71%, 20%);
+            background-color: hsl(204, 71%, 39%);
+            opacity: 0.8;
+            border-radius: 1rem;
+            padding: 0.4rem;
+            height: 10vh;
+            top: 100%;
+            left: -4.5vw;
+            width: 10vw;
+            z-index: 5;
+          }
+    </style>
+</head>
+<body>
+    <section class="hero has-background-info-light is-fullheight">
+        <header class="box hero-head has-background-info has-text-centered is-marginless">
+            <h1 class="title is-3 has-text-white">Gerar XML para Processo Bacth SIAFI</h1>
+            <a class="button is-info is-light" href="/">Home</a>
+            <a class="button is-info is-light" href="/pages/dados.html">Incluir Dados</a>
+            <a class="button is-info is-light" href="/pages/visualizar.html">Visualizar</a>
+        </header>
+        <section class="hero-body px-6 py-4 is-flex is-flex-direction-column">
+            <p class="title is-4 has-text-centered">Dados para Geração Documento Hábil</p>
+            <section id="sb_header" class="box has-background-info has-text-centered">
+                <p class="subtitle has-text-light">Dados Gerais - Informações gerais do documento hábil</p>
+                <form id="formHeaderXML" class="is-flex is-flex-direction-column">
+                    <div id="label_dados_gerais" class="columns has-text-light">
+                        <label class="column is-3" for="codSit">
+                            Situação <br>
+                            <i class="fas fa-question-circle">
+                                <p class="show_help is-hidden">Código da Situação a ser usada na apropriação Documento Hábil</p>
+                            </i>
+                        </label>
+                        <label class="column" for="sequecialGeracao">
+                            Sequencial Geração <br>
+                            <i class="fas fa-question-circle">
+                                <p class="show_help is-hidden">Sequencial de arquivos submetidos no SIAFI pela UG no dia.</p>
+                            </i>
+                        </label>
+                        <label class="column" for="anoReferencia">
+                            Ano Emissão <br>
+                            <i class="fas fa-question-circle">
+                                <p class="show_help is-hidden">Ano Corrente na data de Apropriação do Documento Hábil</p>
+                                
+                            </i>
+                        </label>
+                        <label class="column" for="ugResponsavel">
+                            UG Responsavel <br>
+                            <i class="fas fa-question-circle">
+                                <p class="show_help is-hidden">UG do operador ao fazer o upload do arquivo no SIAFI.</p>
+                                
+                            </i>
+                        </label>
+                        <label class="column" for="cpfResponsavel">
+                            CPF Responsavel <br>
+                            <i class="fas fa-question-circle">
+                                <p class="show_help is-hidden">CPF do operador que fará o upload do arquivo no SIAFI.</p>
+                                
+                            </i>
+                        </label>
+                        <label class="column" for="dataGeracao">
+                            Data Geração <br>
+                            <i class="fas fa-question-circle">
+                                <p class="show_help is-hidden">Data de upload do arquivo no SIAFI.</p>
+
+                            </i>
+                        </label>
+                    </div>
+                    <div class="columns">
+                        <input class="column is-3 input is-info" id="codSit" type="text" minlength="6" maxlength="6" placeholder="Exemplo: DSP061: Bolsas/Auxilios" value="DSP061" disabled>
+                        <input class="column input is-info" id="sequecialGeracao" type="number" value="1" disabled>
+                        <input class="column input is-info" id="anoReferencia" type="number" min="2021" max="2099" value="2021" disabled>
+                        <input class="column input is-info" id="ugResponsavel" type="number" minlength="6" maxlength="6" placeholder="UG do operador" value="158953" disabled>
+                        <input class="column input is-info" id="cpfResponsavel" type="text" minlength="11" maxlength="13" placeholder="CPF do operador" value="12345678900" disabled>
+                        <input class="column input is-info" id="dataGeracao" type="date" value="2021-07-10" disabled>
+                    </div>
+                </form>
+            </section>
+            <div class="container">
+                <button class="button is-info" id='alterarDadosGerais'>Alterar Dados Gerais</button>
+                <button class="button is-info is-hidden" id='confirmaAlteracaoDadosGerais'>Confirmar Alteração Dados</button>
+            </div>
+            
+            <section id="import_file" class="box has-background-light mt-4 has-text-centered">
+                <p class="is-size-5 has-text-dark">Importar Lista de Pagamento de planilha - XLSX, ODS ou CSV</p>
+                <div class="file is-info is-small is-centered has-name is-fullwidth">
+                    <label class="file-label">
+                        <input class="file-input" type="file" name="resume">
+                        <span class="file-cta">
+                            <span class="file-icon">
+                                <i class="fas fa-upload"></i>
+                            </span>
+                            <span class="file-label">
+                                Escolha o Arquivo…
+                            </span>
+                        </span>
+                        <span class="file-name">
+                            Nenhum Arquivo Selecionado...
+                        </span>
+                    </label>
+                </div>
+                <button class="button is-info m-2" id='processarArquivoaImportar'>Importar Lista</button>
+            </section>
+
+            <section id="sb_item" class="box has-background-light">
+                <p class="subtitle has-text-dark">Incluir Dados de Aluno na Lista de Pagamento</p>
+                <div class="field">
+                    <label class="py-2" for="nameStudent">Nome do Aluno</label>
+                    <input class="input is-info has-text-dark" id="nameStudent" type="text" placeholder="Nome do aluno.">
+                </div>
+                <div class="field">
+                    <label class="py-2" for="codCredorDevedor">CPF do Aluno</label>
+                    <input class="input is-info has-text-dark" id="codCredorDevedor" type="text" placeholder="Cadastro de Pessoa Física - CPF do Aluno">
+                </div>
+                <div class="field">
+                    <label class="py-2" for="banco">Banco</label>
+                    <input class="input is-info has-text-dark" id="banco" type="number" placeholder="Código do Banco - Até 3 dígitos" maxlength="3">
+                </div>
+                <div class="field">
+                    <label class="py-2" for="agencia">Agência</label>
+                    <input class="input is-info has-text-dark" id="agencia" type="number" placeholder="Código da Agência Bancária - Até 4 dígitos" maxlength="4">
+                </div>
+                <div class="field">
+                    <label class="py-2" for="conta">Conta</label>
+                    <input class="input is-info has-text-dark" id="conta" type="text" placeholder="Número da Conta Bancária">
+                </div>
+                <div class="field">
+                    <label class="py-2" for="vlr">Valor</label>
+                    <input class="input is-info has-text-dark" id="vlr" type="number" min="0" step="0.01">
+                </div>
+                
+
+            </section>
+
+            <div class="container">
+                <button class="button is-info" id='criar'>Incluir Novo Item</button>
+            </div>
+
+            <section id="show_table" class="box has-background-light mt-4 has-text-centered">
+                SEM DADOS
+            </section>
+
+            <section id="mostrarXML" class="is-hidden">
+
+                <a class="button is-info" id="arquivoXML" target="_blank" download="arquivoXML">Download</a>
+            </section>
+        </section>
+
+        <footer class="hero-foot has-background-info has-text-centered has-text-white is-size-7">
+            <p>Geração de Arquivo XML para importar no SIAFI</p>
+            <p>Desenvolvido com HTML/CSS/Bulma e Brython(Python+Javascript)2021</p>
+        </footer>
+    </section>
+
+    <script src="/public/js/showHelp.js"></script>
+    <script src="/public/js/dadosGerais.js"></script>
+
+    <script>
+        const fileInput = document.querySelector('#import_file input[type=file]');
+        fileInput.onchange = (e) => {
+          if (fileInput.files.length > 0) {
+            const fileName = document.querySelector('#import_file .file-name');
+            fileName.textContent = fileInput.files[0].name;
+          }
+          document.getElementById('processarArquivoaImportar').onclick = async () => {
+              if (fileInput.files.length > 0){
+                  console.log('eita cabra')
+                  var fileToProcess = e.target.files[0]
+                  if ((fileToProcess.name.slice(-4) == 'xlsx') || (fileToProcess.name.slice(-3) == 'xls') || (fileToProcess.name.slice(-3) == 'ods') || (fileToProcess.name.slice(-3) == 'csv')){
+                    console.log(fileToProcess)
+                    const data = await fileToProcess.arrayBuffer();
+                    /* data is an ArrayBuffer */
+                    const workbook = XLSX.read(data);
+                    console.log(workbook.SheetNames)
+                    var dadosImportadosHtml = XLSX.utils.sheet_to_html(workbook.Sheets[workbook.SheetNames[0]]);
+                    document.getElementById('show_table').innerHTML = dadosImportadosHtml
+                    alert('Tabela Carregada com Sucesso')
+                    window.scrollBy(0, document.getElementById('show_table').getBoundingClientRect().top);
+                } else {
+                      console.log('Arquivo de tipo Nao suportado')
+                      alert('Arquivo de tipo Nao suportado')
+
+                  }
+                
+                //var jsa = XLSX.utils.sheet_to_json(worksheet, opts);
+              }
+  
+          }
+        }
+      </script>
+</body>
+</html>

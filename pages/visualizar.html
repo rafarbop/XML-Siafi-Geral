@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>XML - Processo Batch SIAFI</title>
+    
+    <link rel="stylesheet" href="/bulma/css/bulma.css">
+    <link rel="stylesheet" href="/icons/css/all.css">
+    <style>
+        #mostrarXML{
+            border: 4px solid #1D72AA66;
+            border-radius: 10px;
+        }
+    </style>
+</head>
+<body>
+    <section class="hero has-background-info-light is-fullheight">
+        <header class="box hero-head has-background-info has-text-centered is-marginless">
+            <h1 class="title is-3 has-text-white">Gerar XML para Processo Bacth SIAFI</h1>
+            <a class="button is-info is-light" href="/">Home</a>
+            <a class="button is-info is-light" href="/pages/dados.html">Incluir Dados</a>
+            <a class="button is-info is-light" href="/pages/visualizar.html">Visualizar</a>
+        </header>
+        <section class="hero-body has-text-justified px-6 py-4 is-flex is-flex-direction-column">
+            <p class="title is-4 has-text-centered">Visualização e Download XML</p>
+            <p>O arquivo XML criado está apresentado abaixo</p>
+            <p>Caso deseja, verifique se está no padrão desejado e com os dados corretos e faça o download:</p>
+            <a class="button is-info" id="arquivoXML" target="_blank" download="arquivoXML">Download</a>
+            <section class="mt-2" id="mostrarXML"></section>
+        </section>
+
+        <footer class="hero-foot has-background-info has-text-centered has-text-white is-size-7">
+            <p>Geração de Arquivo XML para importar no SIAFI</p>
+            <p>Desenvolvido com HTML/CSS/Bulma e Brython(Python+Javascript)2021</p>
+        </footer>
+    </section>
+
+</body>
+</html>
