@@ -88,7 +88,7 @@
                     <div class="columns">
                         <input class="column is-3 input is-info" id="codSit" type="text" minlength="6" maxlength="6" placeholder="Exemplo: DSP061: Bolsas/Auxilios" value="DSP061" disabled>
                         <input class="column input is-info" id="sequecialGeracao" type="number" value="1" disabled>
-                        <input class="column input is-info" id="anoReferencia" type="number" min="2021" max="2099" value="2021" disabled>
+                        <input class="column input is-info" id="anoReferencia" type="number" min="2022" max="2099" value="2021" disabled>
                         <input class="column input is-info" id="ugResponsavel" type="number" minlength="6" maxlength="6" placeholder="UG do operador" value="158953" disabled>
                         <input class="column input is-info" id="cpfResponsavel" type="text" minlength="11" maxlength="13" placeholder="CPF do operador" value="12345678900" disabled>
                         <input class="column input is-info" id="dataGeracao" type="date" value="2021-07-10" disabled>
@@ -175,6 +175,11 @@
     <script src="/public/js/dadosGerais.js"></script>
 
     <script>
+        
+        now = new Date()
+        document.getElementById('anoReferencia').value = now.getFullYear()
+        document.getElementById('dataGeracao').value = now.toISOString().slice(0,10)
+
         const fileInput = document.querySelector('#import_file input[type=file]');
         fileInput.onchange = (e) => {
           if (fileInput.files.length > 0) {
@@ -196,12 +201,9 @@
                     alert('Tabela Carregada com Sucesso')
                     window.scrollBy(0, document.getElementById('show_table').getBoundingClientRect().top);
                 } else {
-                      console.log('Arquivo de tipo Nao suportado')
-                      alert('Arquivo de tipo Nao suportado')
+                      alert('Tipo de Arquivo Não suportado')
 
                   }
-                
-                //var jsa = XLSX.utils.sheet_to_json(worksheet, opts);
               }
   
           }
